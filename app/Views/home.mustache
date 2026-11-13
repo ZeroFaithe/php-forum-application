@@ -1,0 +1,16 @@
+{{> header}}
+<h1>Discussions</h1>
+{{#has_discussions}}
+<ul class="discussion-list">
+  {{#discussions}}
+  <li>
+    <a href="{{base}}/discussions/{{id}}">{{title}}</a>
+    <span class="muted">by {{author}} · <time datetime="{{created_iso}}">{{created_human}}</time> · {{comment_count}} replies</span>
+  </li>
+  {{/discussions}}
+</ul>
+{{/has_discussions}}
+{{^has_discussions}}
+<p class="notice">No discussions yet. Load <code>database/schema.sql</code> to add the sample thread.</p>
+{{/has_discussions}}
+{{> footer}}

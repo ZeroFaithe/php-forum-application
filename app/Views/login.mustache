@@ -1,0 +1,15 @@
+{{> header}}
+<h1>Log in</h1>
+{{> errors}}
+<form method="post" action="{{base}}/login" class="auth-form">
+  <input type="hidden" name="_token" value="{{csrf}}">
+  <label for="username">Username</label>
+  <input id="username" name="username" value="{{old.username}}" required autocomplete="username">
+
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" required autocomplete="current-password">
+
+  <button type="submit">Log in</button>
+</form>
+<p>New here? <a href="{{base}}/register">Create an account</a></p>
+{{> footer}}

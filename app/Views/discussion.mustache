@@ -1,0 +1,40 @@
+{{> header}}
+{{#discussion}}
+<article class="discussion">
+  <p class="breadcrumb"><a href="{{base}}/">← All discussions</a></p>
+  <h1>{{title}}</h1>
+  <p class="comment-meta">
+    <img class="avatar" src="{{base}}/assets/default-avatar.svg" alt="" width="32" height="32">
+    <strong class="author">{{author}}</strong>
+    <time datetime="{{created_iso}}">{{created_human}}</time>
+  </p>
+  <p class="discussion-body">{{body}}</p>
+</article>
+{{/discussion}}
+
+<section aria-labelledby="replies-heading">
+  <h2 id="replies-heading">Replies ({{comment_count}})</h2>
+
+  {{#logged_in}}
+  <form method="post" action="{{base}}/discussions/{{discussion_id}}/comments" class="reply-form top-level">
+    <input type="hidden" name="_token" value="{{csrf}}">
+    <input type="hidden" name="parent_id" value="">
+    <label for="new-comment">Add a top-level comment</label>
+    <textarea id="new-comment" name="body" rows="3" maxlength="5000" required></textarea>
+    <button type="submit">Post comment</button>
+  </form>
+  {{/logged_in}}
+  {{^logged_in}}
+  <p class="notice">Anyone can read. <a href="{{base}}/login">Log in</a> or <a href="{{base}}/register">register</a> to reply.</p>
+  {{/logged_in}}
+
+  {{#has_comments}}
+  <ul class="thread">
+    {{#comments}}{{> comment}}{{/comments}}
+  </ul>
+  {{/has_comments}}
+  {{^has_comments}}
+  <p class="notice">No replies yet.</p>
+  {{/has_comments}}
+</section>
+{{> footer}}

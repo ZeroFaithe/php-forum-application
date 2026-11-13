@@ -1,0 +1,26 @@
+{
+    "name": "student/nested-forum-lab",
+    "type": "project",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*",
+        "bramus/router": "^1.6",
+        "illuminate/database": "^12.72",
+        "mustache/mustache": "^3.2"
+    },
+    "description": "IPT10 lab: nested forum replies with Bramus Router, Eloquent and Mustache",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "scripts": {
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8000 -t public public/index.php"
+        ],
+        "test": "php tests/run.php"
+    }
+}

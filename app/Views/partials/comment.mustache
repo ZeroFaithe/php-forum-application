@@ -1,0 +1,31 @@
+<li class="comment" id="comment-{{id}}">
+  <article class="comment-card indent-{{indent}}" aria-labelledby="comment-{{id}}-meta">
+    <header class="comment-meta" id="comment-{{id}}-meta">
+      <img class="avatar" src="{{base}}/assets/default-avatar.svg" alt="" width="32" height="32">
+      <strong class="author">{{author}}</strong>
+      <span class="depth">Depth {{depth}}</span>
+      <time datetime="{{created_iso}}">{{created_human}}</time>
+    </header>
+    <p class="comment-body">{{body}}</p>
+    <div class="comment-actions" data-actions-for="{{id}}">
+      {{#can_reply}}
+      <details class="reply">
+        <summary>Reply</summary>
+        <form method="post" action="{{base}}/discussions/{{discussion_id}}/comments" class="reply-form">
+          <input type="hidden" name="_token" value="{{csrf}}">
+          <input type="hidden" name="parent_id" value="{{id}}">
+          <label for="reply-body-{{id}}" class="visually-hidden">Reply to {{author}}</label>
+          <textarea id="reply-body-{{id}}" name="body" rows="3" maxlength="5000" required></textarea>
+          <button type="submit">Post reply</button>
+        </form>
+      </details>
+      {{/can_reply}}
+    </div>
+  </article>
+  {{#has_children}}
+  <ul class="replies" id="replies-{{id}}" data-reply-count="{{reply_count}}">
+    {{#children}}{{> comment}}{{/children}}
+  </ul>
+  {{/has_children}}
+  {{#truncated}}<p class="truncated indent-8">Deeper replies are not shown.</p>{{/truncated}}
+</li>

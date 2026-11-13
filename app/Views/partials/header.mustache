@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page_title}} · Nested Forum</title>
+  <link rel="stylesheet" href="{{base}}/assets/app.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="{{base}}/">Nested Forum</a>
+  <nav aria-label="Account">
+    {{#logged_in}}
+      <span class="who">Signed in as <strong>{{current_user}}</strong></span>
+      <form method="post" action="{{base}}/logout" class="inline">
+        <input type="hidden" name="_token" value="{{csrf}}">
+        <button type="submit" class="link-button">Log out</button>
+      </form>
+    {{/logged_in}}
+    {{^logged_in}}
+      <a href="{{base}}/login">Log in</a>
+      <a href="{{base}}/register" class="button">Register</a>
+    {{/logged_in}}
+  </nav>
+</header>
+<main>
+{{#flash}}
+  <p class="flash flash-{{type}}" role="status">{{message}}</p>
+{{/flash}}

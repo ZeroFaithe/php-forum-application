@@ -1,0 +1,161 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --ink: #1d2433;
+  --muted: #5d6779;
+  --line: #d9dee7;
+  --accent: #2f5d8a;
+  --accent-ink: #ffffff;
+  --ok-bg: #e7f5ec;
+  --ok-ink: #1d5b34;
+  --err-bg: #fbeaea;
+  --err-ink: #8a1f1f;
+  --step: 1.5rem; /* indentation per depth level */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+a { color: var(--accent); }
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 1rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+.site-header nav { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+.brand { font-weight: 700; text-decoration: none; color: var(--ink); }
+
+main { max-width: 52rem; margin: 0 auto; padding: 1rem; }
+.site-footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 2rem 1rem; }
+
+h1 { margin: .5rem 0 .75rem; line-height: 1.2; }
+.muted, small { color: var(--muted); }
+.notice { color: var(--muted); }
+.breadcrumb { margin: 0; }
+
+button, .button {
+  font: inherit;
+  padding: .45rem .9rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+  text-decoration: none;
+}
+.link-button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  padding: 0;
+  text-decoration: underline;
+}
+form.inline { display: inline; }
+
+button:focus-visible, a:focus-visible, summary:focus-visible,
+input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 2px;
+}
+
+.flash { padding: .6rem .9rem; border-radius: 6px; margin: 0 0 1rem; }
+.flash ul { margin: 0; padding-left: 1.2rem; }
+.flash-success { background: var(--ok-bg); color: var(--ok-ink); }
+.flash-error { background: var(--err-bg); color: var(--err-ink); }
+
+.auth-form, .reply-form { display: grid; gap: .35rem; max-width: 28rem; }
+.auth-form button { justify-self: start; margin-top: .5rem; }
+.reply-form { max-width: none; margin: .5rem 0 1rem; }
+.reply-form button { justify-self: start; }
+input, textarea {
+  font: inherit;
+  padding: .45rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  width: 100%;
+  background: #fff;
+  color: var(--ink);
+}
+
+.discussion-list { list-style: none; padding: 0; }
+.discussion-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .75rem 1rem;
+  margin-bottom: .5rem;
+  display: grid;
+}
+
+.discussion { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 1rem; }
+.discussion-body, .comment-body { white-space: pre-wrap; overflow-wrap: anywhere; margin: .4rem 0; }
+
+/* ---- Reply tree ---------------------------------------------------------
+   Lists carry no indentation themselves; each card is indented by its own
+   depth class. indent-N is capped at 8 by the server, so very deep threads
+   stop moving right while their "Depth N" labels stay exact. */
+.thread, .replies { list-style: none; margin: 0; padding: 0; }
+.comment-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: .6rem .8rem;
+  margin: .5rem 0 0;
+}
+.indent-0 { margin-left: 0; }
+.indent-1 { margin-left: calc(var(--step) * 1); }
+.indent-2 { margin-left: calc(var(--step) * 2); }
+.indent-3 { margin-left: calc(var(--step) * 3); }
+.indent-4 { margin-left: calc(var(--step) * 4); }
+.indent-5 { margin-left: calc(var(--step) * 5); }
+.indent-6 { margin-left: calc(var(--step) * 6); }
+.indent-7 { margin-left: calc(var(--step) * 7); }
+.indent-8 { margin-left: calc(var(--step) * 8); }
+
+@media (max-width: 40rem) {
+  :root { --step: .75rem; }
+}
+
+.comment-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 0; }
+.avatar { border-radius: 50%; background: var(--line); }
+.depth {
+  font-size: .8rem;
+  padding: .05rem .45rem;
+  border-radius: 999px;
+  background: #e8eef6;
+  color: var(--accent);
+}
+time { color: var(--muted); font-size: .85rem; }
+.comment-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: flex-start; }
+.reply summary { cursor: pointer; color: var(--accent); }
+.toggle-replies {
+  background: none;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  padding: .1rem .6rem;
+  font-size: .9rem;
+}
+.truncated { color: var(--muted); font-style: italic; }
+
+.error-page .status { color: var(--muted); margin: 0; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
